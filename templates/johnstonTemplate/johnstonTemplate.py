@@ -1,9 +1,9 @@
-from psychopy import data, core, event, gui, hardware
+# Third-party libraries
+from psychopy import core, gui
 from psychopy.data import ExperimentHandler, TrialHandler
 from psychopy.hardware import keyboard
 
-
-import threedipa
+# Class built functions
 import threedipa.utils as utils
 from threedipa.renderer.haploscopeRender import HaplscopeRender2D
 from threedipa.renderer.haploscopeConfig import monitor_settings, physical_calibration
@@ -54,8 +54,6 @@ def main():
     # 1. Collect participant info
     info = {'Participant ID': 'test', 'IOD': '64', 'Session': '1'}
     dlg = gui.DlgFromDict(info, title='Johnston Stereopsis')
-    if not dlg.OK:
-        core.quit()
 
     # 2. Load parameters
     exp_dir = './templates/johnstonTemplate/'
@@ -89,7 +87,6 @@ def main():
     
     # 5. Create PhaseTracker
     phaseTracker = utils.PhaseTracker()
-    
     
     # 6. Setup renderer and input devices
     renderer = HaplscopeRender2D(physical_calibration, monitor_settings, debug_mode)
@@ -146,6 +143,7 @@ def main():
         trials.addData('response_key', response_key[0].name)
         trials.addData('rt_s', rt)
         
+        # Move to the next line of the experimentHandler data management
         thisExp.nextEntry()
 
     # 8. Save and close

@@ -1,0 +1,8 @@
+﻿Depth,DisplayDistance,halfHeight,trials.thisRepN,trials.thisTrialN,trials.thisN,trials.thisIndex,thisRow.t,notes,stimulus_id,response_key,rt_s,Participant ID,IOD,Session,
+10,500,2.5,0,0,0,0,,,,6,17.27235050010495,test,64,1,
+10,500,3.75,0,1,1,1,,,,6,0.805883000139147,test,64,1,
+10,500,5.0,0,2,2,2,,,,6,0.48188840015791357,test,64,1,
+10,500,6.25,0,3,3,3,,,,3,0.3745049999561161,test,64,1,
+10,500,7.5,0,4,4,4,,,,6,1.6027879999019206,test,64,1,
+30,500,2.5,0,5,5,5,,,,3,0.7898133997805417,test,64,1,
+30,500,3.75,0,6,6,6,,,,6,1.088339600013569,test,64,1,
