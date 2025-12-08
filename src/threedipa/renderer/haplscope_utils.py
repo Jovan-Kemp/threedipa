@@ -19,7 +19,8 @@ from . import haploscopeConfig as config
 # Physical calibration functions
 #------------------------------------------------------------------------------
 def calc_display_positions(
-    focal_distance: float
+    focal_distance: float,
+    config: dict[str, float]
     ) -> tuple[float, float]:
     """Return the left/right display carriage positions for ``focal_distance``.
 
@@ -41,7 +42,8 @@ def calc_display_positions(
 
 
 def calc_eye_positions(
-    iod: float
+    iod: float,
+    config: dict[str, float]
     ) -> tuple[float, float]:
     """Return mirror eye positions for a given interpupillary distance."""
 

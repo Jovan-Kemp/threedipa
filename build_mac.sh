@@ -45,3 +45,10 @@ else
     exit 1
 fi
 
+# Open venv and install package in editable mode
+echo "=== Opening virtual environment and building ThreeDIPA package ==="
+source .venv/bin/activate
+uv pip install -e .
+echo "=== Build complete! ==="
+echo "=== Type 'deactivate' to exit the virtual environment ==="
+

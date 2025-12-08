@@ -8,7 +8,7 @@ from threedipa.stimuli.stimuli import make_fixation_cross
 class HaplscopeRender(ABC):
     """Abstract base class for haploscope renders."""
     @abstractmethod
-    def get_physical_calibration(self):
+    def draw_physical_calibration(self):
         pass
 
     @abstractmethod
@@ -32,10 +32,14 @@ class HaplscopeRender2D(HaplscopeRender):
 
     def __init__(
         self,
+        fixation_distance,
+        iod,
         physical_calibration,
         screen_config,
         debug_mode,
     ):
+        self.fixation_distance = fixation_distance
+        self.iod = iod
         self.physical_calibration = physical_calibration
         self.config = screen_config
         self.debug_mode = debug_mode
@@ -47,12 +51,48 @@ class HaplscopeRender2D(HaplscopeRender):
             fullscr=False,
         )
 
-    def get_physical_calibration(self):
-        return haplscope_utils.calc_physical_calibration(
-            self.config["focal_distance"],
-            self.config["iod"],
-            self.physical_calibration
+    def draw_physical_calibration(self):
+        # Draw the physical calibration on the windows.
+        calibration_text = haplscope_utils.calc_physical_calibration(
+            iod=self.iod,
+            focal_distance=self.fixation_distance,
+            config=self.physical_calibration
         )
+        # Convert dictionary to string
+        calibration_text = "\n".join(
+            [f"{key}: {value}mm" for key, value in calibration_text.items()]
+            )
+        calibration_text = calibration_text + "\nPress Enter to continue"
+        visual.TextStim(
+            self.windows[0],
+            text=calibration_text,
+            units=self.windows[0].units,
+            pos=(0, 0),
+            color='white'
+        ).draw()
+        visual.TextStim(
+            self.windows[1],
+            text=calibration_text,
+            units=self.windows[1].units,
+            pos=(0, 0),
+            color='white'
+        ).draw()
+
+    def draw_text(self, text: str, pos: tuple[float, float] = (0, 0)):
+        visual.TextStim(
+            self.windows[0],
+            text=text,
+            units=self.windows[0].units,
+            pos=pos,
+            color='white'
+        ).draw()
+        visual.TextStim(
+            self.windows[1],
+            text=text,
+            units=self.windows[1].units,
+            pos=pos,
+            color='white'
+        ).draw()
 
     def draw_fixation_cross(
         self,

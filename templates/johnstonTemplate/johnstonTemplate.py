@@ -64,6 +64,7 @@ def main():
     # 3. Create trial list (all combinations of factors)
     trialList = utils.createFactorialTrialList(parameters['factors'])
     repetitions = parameters['parameters']['Repetitions']
+    fixationDistance = parameters['parameters']['FixationDistance']
     
     # 4. Create ExperimentHandler and TrialHandler
     thisExp = ExperimentHandler(
@@ -89,14 +90,32 @@ def main():
     phaseTracker = utils.PhaseTracker()
     
     # 6. Setup renderer and input devices
-    renderer = HaplscopeRender2D(physical_calibration, monitor_settings, debug_mode)
+    renderer = HaplscopeRender2D(
+        fixation_distance=fixationDistance,
+        iod=float(info['IOD']),
+        physical_calibration=physical_calibration,
+        screen_config=monitor_settings,
+        debug_mode=debug_mode,
+    )
     kb = keyboard.Keyboard(clock=core.Clock())
     # initialize recording variables
     trial_time = core.Clock()
     rt = 0.0
     response_key = None
+
+    # 7. Calibrate the physical haploscope
+    renderer.draw_physical_calibration()
+    renderer.render_screen()
+    kb.waitKeys(keyList=['return'], waitRelease=True)
     
-    # 7. Trial loop to run each trial
+    # 8. Give instructions to the participant
+    instructions_text = ("Press 3 if the stimulus is stretched and 6 if it is squashed."
+    + "\nPress enter to begin the experiment.")
+    renderer.draw_text(instructions_text, pos=(0, 0))
+    renderer.render_screen()
+    kb.waitKeys(keyList=['return'], waitRelease=True)
+    
+    # 9. Trial loop to run each trial
     # Iterate through the TrialHandler
     for currentTrial in trials:
         # Break trial loop if the experiment should be ended

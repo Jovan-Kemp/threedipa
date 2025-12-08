@@ -40,3 +40,9 @@ if ($response -eq 'y' -or $response -eq 'Y') {
     exit 1
 }
 
+Write-Host "=== Opening Virtual Environment and Building ThreeDIPA Package ===" -ForegroundColor Green
+.\.venv\Scripts\Activate.ps1
+uv pip install -e .
+Write-Host "=== Build Complete! ===" -ForegroundColor Cyan
+
+Write-Host "=== Type `deactivate` to exit the virtual environment ===" -ForegroundColor Cyan
