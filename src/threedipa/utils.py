@@ -235,25 +235,31 @@ def _convert_value(value_str):
 #------------------------------------------------------------------------------
 # Geometric Conversion Functions
 #------------------------------------------------------------------------------
-def physical_width_from_visual_degree(
+def deg_to_rad(degrees: float) -> float:
+    return degrees * (np.pi / 180.0)
+
+def rad_to_deg(radians: float) -> float:
+    return radians * (180.0 / np.pi)
+
+def width_cm_from_visual_degree(
     visual_degree: float,
-    distance: float,
+    distance_cm: float,
     ) -> float:
-    return np.tan(visual_degree / 2) * distance * 2
+    return np.tan(deg_to_rad(visual_degree / 2)) * distance_cm * 2
 
 def degree_from_width_cm(
     width_cm: float,
-    distance: float,
+    distance_cm: float,
     ) -> float:
-    return np.arctan(width_cm / (2 * distance)) * 2
+    return rad_to_deg(np.arctan(width_cm / (2 * distance_cm)) * 2)
 
 def pixels_by_visual_degree(
-    width_physical: float,
-    distance: float,
+    width_cm: float,
+    distance_cm: float,
     pixel_by_cm: float,
     ) -> float:
-    visual_degree = degree_from_width_cm(width_physical, distance)
-    cm_by_degree = width_physical / visual_degree
+    visual_degree = degree_from_width_cm(width_cm, distance_cm)
+    cm_by_degree = width_cm / visual_degree
     return cm_by_degree * pixel_by_cm
 
 def visual_degree_to_pixel(

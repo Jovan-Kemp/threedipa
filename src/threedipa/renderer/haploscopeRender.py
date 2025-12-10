@@ -37,15 +37,15 @@ class HaplscopeRender2D(HaplscopeRender):
         iod,
         physical_calibration,
         screen_config,
-        debug_mode,
-        fixation_cross_degrees: float = 0.25,
+        debug_mode: bool = False,
+        fixation_cross_degrees: float = 0.5,
     ):
         self.fixation_distance = fixation_distance
         self.iod = iod
         self.physical_calibration = physical_calibration
         self.config = screen_config
         self.debug_mode = debug_mode
-        self.fixation_cross_pixels = fixation_cross_degrees
+        self.fixation_cross_degrees = fixation_cross_degrees
         self.windows = renderer_utils.setup_haploscope_windows(
             size_pix=self.config["size_pix"],
             fullscr=self.config["full_screen"],
@@ -62,10 +62,10 @@ class HaplscopeRender2D(HaplscopeRender):
         )
 
     def draw_physical_calibration(self):
-        # Draw the physical calibration on the windows.
+        # Draw the physical calibration on the windows in mm.
         calibration_text = renderer_utils.calc_physical_calibration(
             iod=self.iod,
-            focal_distance=self.fixation_distance,
+            focal_distance_mm=self.fixation_distance * 10,  # convert cm to mm
             config=self.physical_calibration
         )
         # Convert dictionary to string
@@ -112,9 +112,10 @@ class HaplscopeRender2D(HaplscopeRender):
     ):
         """Draw the fixation cross on the windows."""
         if size_degrees == []:
-            size_degrees = (self.fixation_cross_pixels, self.fixation_cross_pixels)
+            size_degrees = (self.fixation_cross_degrees, self.fixation_cross_degrees)
         horizontal_in_pixels = size_degrees[0] * self.pixel_per_degree
         vertical_in_pixels = size_degrees[1] * self.pixel_per_degree
+        print(f"Drawing fixation cross of size (pixels): {horizontal_in_pixels}, {vertical_in_pixels}")
         size_pixels = (horizontal_in_pixels, vertical_in_pixels)
         l_fixation, r_fixation = make_fixation_cross(
             self.windows, size_pixels, color, pos)

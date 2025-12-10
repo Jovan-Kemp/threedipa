@@ -13,6 +13,7 @@ def make_fixation_cross(
         win=windows[0],
         start=(0, -size_pixels[1]/2),
         end=(0, size_pixels[1]/2),
+        units="pix",
         pos=pos,
         color=color
     )
@@ -20,6 +21,7 @@ def make_fixation_cross(
         win=windows[0],
         start=(-size_pixels[0]/2, 0),
         end=(size_pixels[0]/2, 0),
+        units="pix",
         pos=pos,
         color=color
     )
@@ -29,6 +31,7 @@ def make_fixation_cross(
         win=windows[1],
         start=(0, -size_pixels[1]/2),
         end=(0, size_pixels[1]/2),
+        units="pix",
         pos=pos,
         color=color
     )
@@ -36,6 +39,7 @@ def make_fixation_cross(
         win=windows[1],
         start=(-size_pixels[0]/2, 0),
         end=(size_pixels[0]/2, 0),
+        units="pix",
         pos=pos,
         color=color
     )

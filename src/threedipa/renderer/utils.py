@@ -63,15 +63,15 @@ def calc_arm_rotations(iod: float, focal_distance: float) -> float:
 
 def calc_physical_calibration(
     iod: float,
-    focal_distance: float,
+    focal_distance_mm: float,
     config: dict[str, float]
     ) -> dict[str, float]:
-    """Return a dict summarising all physical calibration values.
+    """Return a dict summarising all physical calibration values in mm.
     """
 
-    display_left, display_right = calc_display_positions(focal_distance, config)
+    display_left, display_right = calc_display_positions(focal_distance_mm, config)
     eye_left, eye_right = calc_eye_positions(iod, config)
-    angle = calc_arm_rotations(iod, focal_distance)
+    angle = calc_arm_rotations(iod, focal_distance_mm)
     return {
         "DISPLAY_LEFT": display_left,
         "DISPLAY_RIGHT": display_right,
@@ -141,6 +141,7 @@ def setup_haploscope_windows(
         screen=left_screen,
         fullscr=fullscr,
         monitor=left_monitor,
+        units="pix",
         color=color,
         waitBlanking=waitBlanking,
         **kwargs
@@ -152,6 +153,7 @@ def setup_haploscope_windows(
         screen=right_screen,
         fullscr=fullscr,
         monitor=right_monitor,
+        units="pix",
         color=color,
         waitBlanking=waitBlanking,
         **kwargs

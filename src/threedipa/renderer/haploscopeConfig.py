@@ -13,6 +13,6 @@ physical_calibration = {
 
 monitor_settings = {
     "size_pix": (1920, 1080),
-    "size_cm": (53.0, 53.0),
+    "size_cm": (34.0, 18.0),
     "full_screen": True,
 }
